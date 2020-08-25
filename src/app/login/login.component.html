@@ -1,0 +1,63 @@
+<div class="row h-100 w-100 m-0">
+    <div class="col-sm-6 bgLogin ">
+        <form class="formCenter w-50">
+            <div class="form-group">
+                <input type="text" required #nome="ngModel" [(ngModel)]="usuario.login" class="formControl" id="login"
+                    placeholder="Seu email" name="email">
+                <div *ngIf="nome.invalid && nome.touched" class="alert alert-danger mt-1">
+                    Login deve ser informado
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="password" required #senha="ngModel" [(ngModel)]="usuario.senha" class="formControl"
+                    id="senha" placeholder="Senha" name="senha">
+                <div *ngIf="senha.invalid && senha.touched" class="alert alert-danger mt-1">
+                    Senha deve ser informado
+                </div>
+            </div>
+            <button [disabled]="!nome.valid && senha.invalid" type="submit" class="btnCSS"
+                (click)="login()">Acessar</button>
+
+            <button  type="submit" class="btnCSS mt-2 "
+                (click)="recuperarSenha()">Recuperar</button>
+        </form>
+    </div>
+
+    <div class="col-sm-6 bgRegister d-flex">
+        <h1 class="textoRegistrese">Manutenção</h1>
+        <form  class="w-50  align-self-center">
+            <div class="form-group">
+                <input type="text" required #nome="ngModel" [(ngModel)]="usuario.login" class="formControl" id="login"
+                    placeholder="Seu email" name="email">
+                <div *ngIf="nome.invalid && nome.touched" class="alert alert-danger mt-1">
+                    Login deve ser informado
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" required #nome="ngModel" [(ngModel)]="usuario.login" class="formControl" id="login"
+                    placeholder="Seu email" name="email">
+                <div *ngIf="nome.invalid && nome.touched" class="alert alert-danger mt-1">
+                    Login deve ser informado
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" required #nome="ngModel" [(ngModel)]="usuario.login" class="formControl" id="login"
+                    placeholder="Seu email" name="email">
+                <div *ngIf="nome.invalid && nome.touched" class="alert alert-danger mt-1">
+                    Login deve ser informado
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="password" required #senha="ngModel" [(ngModel)]="usuario.senha" class="formControl"
+                    id="senha" placeholder="Senha" name="senha">
+                <div *ngIf="senha.invalid && senha.touched" class="alert alert-danger mt-1">
+                    Senha deve ser informado
+                </div>
+            </div>
+            <button [disabled]="!nome.valid && senha.invalid" type="submit" class="btnCSS"
+                (click)="login()">Cadastrar-se</button>
+            
+        </form>
+    </div>
+
+</div>

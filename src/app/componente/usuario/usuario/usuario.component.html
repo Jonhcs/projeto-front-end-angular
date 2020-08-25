@@ -1,0 +1,42 @@
+
+<div class="container m-3">
+  <form class="form-inline">
+    <input id="nome" name="nome" #nome class="form-control mr-sm-2 " type="search" placeholder="Pesquisar por nome">
+    <button (click)="pesquisarPorNome(nome.value)" class="btn btn-outline-info my-2 my-sm-0" type="button">Pesquisar</button>
+    <button [routerLink]="['/usuarioAdd']" routerLinkActive="router-link-active"  class="ml-2 btn btn-outline-success my-2 my-sm-0" type="button">Novo Usuario</button>
+
+  </form>
+</div>
+
+<table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Login</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Salário</th>
+        <th scope="col">DATA</th>
+        <th scope="col">Cpf</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios | paginate: { itemsPerPage: 5, currentPage: p, totalItems: total }; let i = index">
+        <td scope="col">{{usuario.id}}</td>
+        <td >{{usuario.login}}</td>
+        <td >{{usuario.nome}}</td>
+        <td >{{usuario.salario  | currency:'BRL':true}}</td>
+        <td >{{usuario.dataNascimento}}</td>
+        <td >{{usuario.cpf | mask: '000.000.000-00'}}</td>
+        <td>
+          <button class="btn btn-danger" (click)="deletar(usuario.id, i)">Delete</button>
+        </td>
+        <td>
+          <button class="btn btn-info" [routerLink]="['/usuarioAdd', usuario.id]" routerLinkActive="router-link-active">Editar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="text-center">
+    <pagination-controls (pageChange)="carregarPagina(p = $event)" previousLabel="Voltar" nextLabel="Próximo" ></pagination-controls>
+  </div>

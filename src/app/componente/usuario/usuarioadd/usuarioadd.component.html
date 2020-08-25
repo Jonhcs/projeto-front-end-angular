@@ -1,0 +1,135 @@
+<div class="container">
+    <h3 class="m-4 text-center">Usuario</h3>
+    <form #f="ngForm" class="p-3">
+        <div class="form-row">
+            <div class="col-sm-12 p-1">
+                <input type="hidden" [(ngModel)]="usuario.id" readonly="true" class="form-control" id="id" name="id"
+                    autocomplete="false">
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="col-sm-4 p-1">
+                <input type="text" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                 [(ngModel)]="usuario.salario" class="form-control" id="salario" name="salario"
+                placeholder="Digite o seu salário">
+            </div>
+
+            <div class="col-sm-4 p-1">
+                <input #login="ngModel" type="text" [(ngModel)]="usuario.login" class="form-control" id="login"
+                    name="login" required placeholder="Login">
+                <div *ngIf="!login.valid && login.touched" class="alert alert-danger" role="alert">
+                    <span> Login Obrigatório </span>
+                </div>
+            </div>
+            <div class="col-sm-4 p-1">
+                <select [(ngModel)]="usuario.profissao.id" name="profissao.id" id="profissao.id">
+                    <option [ngValue]="p.id" *ngFor="let p of profissoes">{{p.nome}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-sm-6 p-1">
+                <input type="text" #nome="ngModel" [(ngModel)]="usuario.nome" class="form-control" id="nome" name="nome"
+                    required placeholder="Nome">
+                <div *ngIf="!nome.valid && nome.touched" class="alert alert-danger" role="alert">
+                    <span> Nome Obrigatório </span>
+                </div>
+            </div>
+
+            <div class="col-sm-6 p-1">
+                <input type="password" #senha="ngModel" [(ngModel)]="usuario.senha" class="form-control" id="senha"
+                    name="senha" required placeholder="Senha">
+                <div *ngIf="!senha.valid && senha.touched" class="alert alert-danger" role="alert">
+                    <span> Senha Obrigatório </span>
+                </div>
+            </div>
+        </div>
+        <div class="form-row ">
+            <div class="col-sm-6 p-1">
+                <input type="text" mask="000.000.000-00" #cpf="ngModel" [(ngModel)]="usuario.cpf" class="form-control"
+                    id="cpf" name="cpf" required placeholder="CPF">
+                <div *ngIf="!cpf.valid && cpf.touched" class="alert alert-danger" role="alert">
+                    <span> CPF Obrigatório </span>
+                </div>
+            </div>
+            <div class="col-sm-4 p-1">
+                <input type="text" class="form-control"
+                    #dp="bsDatepicker" 
+                    bsDatepicker
+                    (bsValueChange)="onValueChange($event)" 
+                    [(ngModel)]="usuario.dataNascimento" 
+                    name="dataNascimento"
+                    id="dataNascimento" 
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY'}">
+            </div>
+            <div class="col-sm-2 p-1  ">
+                <button class="btn btn-success w-100" (click)="dp.toggle()" [attr.aria-expanded]="dp.isOpen"
+                    type="button">Data</button>
+            </div>
+
+
+        </div>
+
+        <div class="col-sm-12 p-1">
+            <div class="card text-center">
+                <div class="card-header">
+                    Telefone Contato
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="col-sm-8">
+                        <div class="card-body">
+                            <input type="text" mask="(00) 0 0000-0000" [(ngModel)]="telefone.numero"
+                                class="form-control" id="numero" name="numero" placeholder="Telefone">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card-body">
+                            <button type="button" class="btn btn-success w-100" (click)="addFone()">Salvar
+                                Telefone</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="d-flex bd-highlight ">
+            <div class="p-2 flex-fill bd-highlight">
+                <button type="button" class="btn btn-info w-100" [routerLink]="['/usuarios']"
+                    routerLinkActive="router-link-active">Voltar</button>
+            </div>
+            <div class="p-2 flex-fill bd-highlight">
+                <button type="button" class="btn btn-danger w-100" (click)="novo()">Limpar</button>
+            </div>
+            <div class="p-2 flex-fill bd-highlight">
+                <button type="button" class="btn btn-success w-100" [disabled]="!f.valid"
+                    (click)="salvar()">Salvar</button>
+            </div>
+        </div>
+
+
+    </form>
+
+</div>
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Número</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let fone of usuario.telefones; let i = index">
+                <td scope="col">{{fone.id}}</td>
+                <td>{{fone.numero | mask: '(00) 0 0000-0000'}}</td>
+                <td>
+                    <button class="btn btn-danger" (click)="deletarTelefone(fone.id, i)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
